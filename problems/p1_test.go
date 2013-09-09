@@ -11,7 +11,6 @@ func TestP1(t *testing.T) {
 	}{
 		{10, 23},
 		{1000, 233168},
-		{1000000000, 233168},
 	}
 	for i, c := range tests {
 		if got := P1(c.n); got != c.want {
