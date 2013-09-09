@@ -8,6 +8,6 @@ func P1(n int) int {
 			sum += i
 		}
 	}
-  return sum
+ return sum
 }
 
