@@ -39,6 +39,10 @@ var problems = map[int]Problem{
 		}
 		return n
 	}},
+	4: {3, func(n int) int {
+		from := math.Pow10(n) - 1
+		return int(from)
+	}},
 }
 
 func main() {
