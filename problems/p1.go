@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"math"
 	"os"
 	"strconv"
 )
@@ -29,6 +30,14 @@ var problems = map[int]Problem{
 			}
 		}
 		return sum
+	}},
+	3: {600851475143, func(n int) int {
+		for i := 2; i < int(math.Sqrt(float64(n))); i++ {
+			for ; n%i == 0; n = n / i {
+				fmt.Println(i)
+			}
+		}
+		return n
 	}},
 }
 
