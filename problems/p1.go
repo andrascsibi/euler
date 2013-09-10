@@ -12,6 +12,27 @@ type Problem struct {
 	solution func(int) int
 }
 
+func Palindrome(n int) bool {
+	switch {
+	case n < 0:
+		return false
+	case n == 0:
+		return true
+	}
+	digits := make([]uint8, 0, 10)
+	for ; n > 0; n /= 10 {
+		// least significant digit comes first
+		digits = append(digits, uint8(n%10))
+	}
+	l := len(digits)
+	for i := 0; i < l/2; i++ {
+		if digits[i] != digits[l-i-1] {
+			return false
+		}
+	}
+	return true
+}
+
 var problems = map[int]Problem{
 	1: {1000, func(n int) int {
 		sum := 0
@@ -40,8 +61,18 @@ var problems = map[int]Problem{
 		return n
 	}},
 	4: {3, func(n int) int {
-		from := math.Pow10(n) - 1
-		return int(from)
+		from := int(math.Pow10(n) - 1)
+		to := int(math.Pow10(n - 1))
+		greatest := 0
+		for i := from; i > to; i-- {
+			for j := from; j >= i; j-- {
+				prod := i * j
+				if prod > greatest && Palindrome(prod) {
+					greatest = prod
+				}
+			}
+		}
+		return greatest
 	}},
 }
 
