@@ -74,6 +74,35 @@ var problems = map[int]Problem{
 		}
 		return greatest
 	}},
+	5: {20, func(n int) int {
+		// I'm getting the impression that Go is not really a functional language:)
+		all := func(list []int, predicate func(int) bool) bool {
+			for _, item := range list {
+				if !predicate(item) {
+					return false
+				}
+			}
+			return true
+		}
+		seq := func(from, to int) []int {
+			l := to - from
+			if l < 0 {
+				l = 0
+			}
+			ret := make([]int, l)
+			for i := 0; i < l; i++ {
+				ret[i] = i + from
+			}
+			return ret
+		}
+		for i := n; ; i += n {
+			if all(seq(1, n+1), func(j int) bool {
+				return i%j == 0
+			}) {
+				return i
+			}
+		}
+	}},
 }
 
 func main() {
@@ -85,6 +114,6 @@ func main() {
 	if len(os.Args) > 2 {
 		problem.n, _ = strconv.Atoi(os.Args[2])
 	}
-	fmt.Println("Solving problem", problemNumber, "where n :=", problem.n)
+	fmt.Println("Solving problem", problemNumber, "where n ==", problem.n)
 	fmt.Println(problem.solution(problem.n))
 }
