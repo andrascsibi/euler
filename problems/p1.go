@@ -8,8 +8,8 @@ import (
 )
 
 type Problem struct {
-	n        int
-	solution func(int) int
+	input  int
+	solver func(int) int
 }
 
 func Palindrome(n int) bool {
@@ -124,14 +124,14 @@ var problems = map[int]Problem{
 }
 
 func main() {
-	problemNumber, _ := strconv.Atoi(os.Args[1])
-	problem, found := problems[problemNumber]
+	problemId, _ := strconv.Atoi(os.Args[1])
+	problem, found := problems[problemId]
 	if !found {
-		fmt.Println("Problem", problemNumber, "is not solved yet.")
+		fmt.Println("Problem", problemId, "is not solved yet.")
 	}
 	if len(os.Args) > 2 {
-		problem.n, _ = strconv.Atoi(os.Args[2])
+		problem.input, _ = strconv.Atoi(os.Args[2])
 	}
-	fmt.Println("Solving problem", problemNumber, "where n ==", problem.n)
-	fmt.Println(problem.solution(problem.n))
+	fmt.Printf("Solving problem #%v where input == %v\n", problemId, problem.input)
+	fmt.Println(problem.solver(problem.input))
 }

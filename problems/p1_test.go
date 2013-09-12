@@ -28,3 +28,29 @@ func TestPalindrome(t *testing.T) {
 		}
 	}
 }
+
+func TestProblems(t *testing.T) {
+	var tests = []struct {
+		probId, want int
+	}{
+		{1, 233168},
+		{2, 4613732},
+		{3, 6857},
+		{4, 906609},
+		{5, 232792560},
+		{6, 25164150},
+	}
+	covered := make(map[int]bool)
+	for _, c := range tests {
+		covered[c.probId] = true
+		problem := problems[c.probId]
+		if got := problem.solver(problem.input); got != c.want {
+			t.Errorf("failed problem %v. wanted %v but got %v", c.probId, c.want, got)
+		}
+	}
+	for probId, _ := range problems {
+		if !covered[probId] {
+			t.Errorf("problem #%v is not covered by test", probId)
+		}
+	}
+}
