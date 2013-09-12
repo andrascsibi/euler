@@ -8,11 +8,6 @@ import (
 	"strconv"
 )
 
-type Problem struct {
-	input  int
-	solver func(int) int
-}
-
 func main() {
 	problemId, _ := strconv.Atoi(os.Args[1])
 	problem, solved := problems.Get(problemId)
