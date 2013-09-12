@@ -1,6 +1,7 @@
-package main
+package problems
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -44,7 +45,8 @@ func TestProblems(t *testing.T) {
 	for _, c := range tests {
 		covered[c.probId] = true
 		problem := problems[c.probId]
-		if got := problem.solver(problem.input); got != c.want {
+		fmt.Printf("Solving problem #%v\n", c.probId)
+		if got := problem.Solve(); got != c.want {
 			t.Errorf("failed problem %v. wanted %v but got %v", c.probId, c.want, got)
 		}
 	}

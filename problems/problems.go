@@ -1,15 +1,27 @@
-package main
+package problems
 
 import (
 	"fmt"
 	"math"
-	"os"
-	"strconv"
 )
+
+var _ = fmt.Println // silence unused import complain
 
 type Problem struct {
 	input  int
 	solver func(int) int
+}
+
+func (prob *Problem) Solve() int {
+	return prob.solver(prob.input)
+}
+
+func (prob *Problem) SetInput(input int) {
+	prob.input = input
+}
+
+func (prob *Problem) Input() int {
+	return prob.input
 }
 
 func Palindrome(n int) bool {
@@ -31,6 +43,11 @@ func Palindrome(n int) bool {
 		}
 	}
 	return true
+}
+
+func Get(problemId int) (problem Problem, solved bool) {
+	problem, solved = problems[problemId]
+	return
 }
 
 var problems = map[int]Problem{
@@ -55,7 +72,6 @@ var problems = map[int]Problem{
 	3: {600851475143, func(n int) int {
 		for i := 2; i < int(math.Sqrt(float64(n))); i++ {
 			for ; n%i == 0; n = n / i {
-				fmt.Println(i)
 			}
 		}
 		return n
@@ -122,17 +138,4 @@ var problems = map[int]Problem{
 		}
 		return sum*sum - sumOfSq
 	}},
-}
-
-func main() {
-	problemId, _ := strconv.Atoi(os.Args[1])
-	problem, found := problems[problemId]
-	if !found {
-		fmt.Println("Problem", problemId, "is not solved yet.")
-	}
-	if len(os.Args) > 2 {
-		problem.input, _ = strconv.Atoi(os.Args[2])
-	}
-	fmt.Printf("Solving problem #%v where input == %v\n", problemId, problem.input)
-	fmt.Println(problem.solver(problem.input))
 }
