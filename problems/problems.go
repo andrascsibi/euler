@@ -74,7 +74,7 @@ var problems = map[int]Problem{
 	5: {20, func(n int) int {
 		// I'm getting the impression that Go is not really a functional language:)
 		for i := n; ; i += n {
-			if fun.LazyAll(fun.LazySeq(1, n+1), func(j int) bool {
+			if fun.All(fun.Seq(1, n+1), func(j int) bool {
 				return i%j == 0
 			}) {
 				return i
