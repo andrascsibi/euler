@@ -1,16 +1,5 @@
 package fun
 
-func LazySeq(from, to int) chan int {
-	c := make(chan int)
-	go func() {
-		for i := from; i < to; i++ {
-			c <- i
-		}
-		close(c)
-	}()
-	return c
-}
-
 // Alright, this is not functional at all,
 // I just couldn't figure out where to put it
 func Palindrome(n int) bool {
@@ -32,4 +21,45 @@ func Palindrome(n int) bool {
 		}
 	}
 	return true
+}
+
+func All(list []int, predicate func(int) bool) bool {
+	for _, item := range list {
+		if !predicate(item) {
+			return false
+		}
+	}
+	return true
+}
+
+func Seq(from, to int) []int {
+	l := to - from
+	if l < 0 {
+		l = 0
+	}
+	ret := make([]int, l)
+	for i := 0; i < l; i++ {
+		ret[i] = i + from
+	}
+	return ret
+}
+
+func LazyAll(list chan int, predicate func(int) bool) bool {
+	for item := range list {
+		if !predicate(item) {
+			return false
+		}
+	}
+	return true
+}
+
+func LazySeq(from, to int) chan int {
+	c := make(chan int)
+	go func() {
+		for i := from; i < to; i++ {
+			c <- i
+		}
+		close(c)
+	}()
+	return c
 }
