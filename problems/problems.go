@@ -26,27 +26,6 @@ func (prob *Problem) Input() int {
 	return prob.input
 }
 
-func Palindrome(n int) bool {
-	switch {
-	case n < 0:
-		return false
-	case n == 0:
-		return true
-	}
-	digits := make([]uint8, 0, 10)
-	for ; n > 0; n /= 10 {
-		// least significant digit comes first
-		digits = append(digits, uint8(n%10))
-	}
-	l := len(digits)
-	for i := 0; i < l/2; i++ {
-		if digits[i] != digits[l-i-1] {
-			return false
-		}
-	}
-	return true
-}
-
 func Get(problemId int) (problem Problem, solved bool) {
 	problem, solved = problems[problemId]
 	return
@@ -85,7 +64,7 @@ var problems = map[int]Problem{
 		for i := from; i > to; i-- {
 			for j := from; j >= i; j-- {
 				prod := i * j
-				if prod > greatest && Palindrome(prod) {
+				if prod > greatest && fun.Palindrome(prod) {
 					greatest = prod
 				}
 			}
