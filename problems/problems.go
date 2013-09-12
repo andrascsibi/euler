@@ -1,6 +1,8 @@
 package problems
 
 import (
+	"github.com/andrascsibi/euler/fun"
+
 	"fmt"
 	"math"
 )
@@ -122,18 +124,8 @@ var problems = map[int]Problem{
 	6: {100, func(n int) int {
 		sum := n * (n + 1) / 2
 		// or is it... ?
-		lazySeq := func(from, to int) chan int {
-			c := make(chan int)
-			go func() {
-				for i := from; i < to; i++ {
-					c <- i
-				}
-				close(c)
-			}()
-			return c
-		}
 		sumOfSq := 0
-		for i := range lazySeq(1, n+1) {
+		for i := range fun.LazySeq(1, n+1) {
 			sumOfSq += i * i
 		}
 		return sum*sum - sumOfSq
