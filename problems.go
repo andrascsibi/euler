@@ -105,6 +105,7 @@ var problems = map[int]Problem{
 	}},
 	6: {100, func(n int) int {
 		sum := n * (n + 1) / 2
+		// or is it... ?
 		lazySeq := func(from, to int) chan int {
 			c := make(chan int)
 			go func() {
