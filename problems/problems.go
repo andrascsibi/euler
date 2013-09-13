@@ -90,4 +90,30 @@ var problems = map[int]Problem{
 		}
 		return sum*sum - sumOfSq
 	}},
+	7: {10001, func(n int) int {
+		primes := make([]int, n)
+		isPrime := func(k int) bool {
+			to := int(math.Sqrt(float64(k)))
+			for _, p := range primes {
+				if p > to {
+					return true
+				}
+				if k%p == 0 {
+					return false
+				}
+			}
+			return true
+		}
+		primes[0] = 2
+		primes[1] = 3
+		prevPrime := 3
+		for i := 2; i < n; i++ {
+			nextPrime := prevPrime + 2
+			for ; !isPrime(nextPrime); nextPrime += 2 {
+			}
+			primes[i] = nextPrime
+			prevPrime = nextPrime
+		}
+		return primes[n-1]
+	}},
 }
