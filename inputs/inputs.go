@@ -1,7 +1,14 @@
 package inputs
 
-func Get(probNum, inputNum int) (input string, err error) {
-	input = ""
-	err = nil
+import (
+	"fmt"
+	"io/ioutil"
+)
+
+func ToString(probNum, inputNum int) (input string, err error) {
+	filename := fmt.Sprintf("%d_%d.txt", probNum, inputNum)
+	var inputBytes []byte
+	inputBytes, err = ioutil.ReadFile(filename)
+	input = string(inputBytes)
 	return
 }
