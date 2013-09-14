@@ -2,6 +2,7 @@ package problems
 
 import (
 	"github.com/andrascsibi/euler/fun"
+	"github.com/andrascsibi/euler/inputs"
 
 	"fmt"
 	"math"
@@ -115,5 +116,11 @@ var problems = map[int]Problem{
 			prevPrime = nextPrime
 		}
 		return primes[n-1]
+	}},
+	8: {0, func(n int) int {
+		in, err := inputs.Get(8, n)
+		_ = in
+		_ = err
+		return 0
 	}},
 }
