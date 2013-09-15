@@ -4,15 +4,23 @@ import (
 	"testing"
 )
 
-func TestToString(t *testing.T) {
-	input := ToString(".", 0, 0)
+func TestString(t *testing.T) {
+	input := String(".", 0, 0)
 	if input != "hello\n" {
-		t.Errorf("expected 0_0.txt to contain the string hello")
+		t.Errorf("expected 0_0.txt to contain the string hello, but was: %v", input)
 	}
 	defer func() {
 		if r := recover(); r == nil {
 			t.Errorf("should have panicked")
 		}
 	}()
-	input = ToString(".", 0, 1)
+	input = String(".", 0, 1)
+}
+
+func TestBufReader(t *testing.T) {
+	br := BufReader(".", 0, 0)
+	//defer br.Close()
+	if in, _ := br.ReadString('\n'); in != "hello\n" {
+		t.Errorf("expected 0_0.txt to contain the string hello, but was: %v", in)
+	}
 }
