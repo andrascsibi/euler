@@ -118,8 +118,21 @@ var problems = map[int]Problem{
 		return primes[n-1]
 	}},
 	8: {0, func(n int) int {
-		input := inputs.ToString("inputs", 8, n)
-		fmt.Println(input)
+		br, closer := inputs.BufReader("inputs", 8, n)
+		defer closer.Close()
+		toDigit := func(b byte) int8 {
+			if b < '0' || b > '9' {
+				return -1
+			}
+			return int8(b - '0')
+		}
+		for b, err := br.ReadByte(); err == nil; b, err = br.ReadByte() {
+			digit := toDigit(b)
+			if digit < 0 {
+				continue
+			}
+			fmt.Println(digit)
+		}
 		return 0
 	}},
 }
