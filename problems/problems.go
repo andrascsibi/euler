@@ -126,13 +126,25 @@ var problems = map[int]Problem{
 			}
 			return int8(b - '0')
 		}
+		size := 5
+		ringbuffer := make([]int8, size)
+		head := 0
+		maxProd := 0
 		for b, err := br.ReadByte(); err == nil; b, err = br.ReadByte() {
 			digit := toDigit(b)
 			if digit < 0 {
 				continue
 			}
-			fmt.Println(digit)
+			ringbuffer[head] = digit
+			head = (head + 1) % size
+			curProd := 1
+			for _, d := range ringbuffer {
+				curProd *= int(d)
+			}
+			if curProd >= maxProd {
+				maxProd = curProd
+			}
 		}
-		return 0
+		return maxProd
 	}},
 }
