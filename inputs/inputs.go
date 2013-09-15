@@ -3,11 +3,13 @@ package inputs
 import (
 	"fmt"
 	"io/ioutil"
+	"path/filepath"
 )
 
-func ToString(probNum, inputNum int) string {
+func ToString(dir string, probNum, inputNum int) string {
 	filename := fmt.Sprintf("%d_%d.txt", probNum, inputNum)
-	inputBytes, err := ioutil.ReadFile(filename)
+	path := filepath.Join(dir, filename)
+	inputBytes, err := ioutil.ReadFile(path)
 	if err != nil {
 		panic(fmt.Sprintf("%v", err))
 	}

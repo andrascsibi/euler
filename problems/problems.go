@@ -118,7 +118,7 @@ var problems = map[int]Problem{
 		return primes[n-1]
 	}},
 	8: {0, func(n int) int {
-		input := inputs.ToString(8, n)
+		input := inputs.ToString("inputs", 8, n)
 		fmt.Println(input)
 		return 0
 	}},

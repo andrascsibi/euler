@@ -5,7 +5,7 @@ import (
 )
 
 func TestToString(t *testing.T) {
-	input := ToString(0, 0)
+	input := ToString(".", 0, 0)
 	if input != "hello\n" {
 		t.Errorf("expected 0_0.txt to contain the string hello")
 	}
@@ -14,5 +14,5 @@ func TestToString(t *testing.T) {
 			t.Errorf("should have panicked")
 		}
 	}()
-	input = ToString(0, 1)
+	input = ToString(".", 0, 1)
 }
