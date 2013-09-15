@@ -18,8 +18,8 @@ func TestString(t *testing.T) {
 }
 
 func TestBufReader(t *testing.T) {
-	br := BufReader(".", 0, 0)
-	//defer br.Close()
+	br, closer := BufReader(".", 0, 0)
+	defer closer.Close()
 	if in, _ := br.ReadString('\n'); in != "hello\n" {
 		t.Errorf("expected 0_0.txt to contain the string hello, but was: %v", in)
 	}

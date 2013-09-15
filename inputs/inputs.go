@@ -3,6 +3,7 @@ package inputs
 import (
 	"bufio"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -22,12 +23,11 @@ func String(dir string, probNum, inputNum int) string {
 	return string(inputBytes)
 }
 
-func BufReader(dir string, probNum, inputNum int) *bufio.Reader {
+func BufReader(dir string, probNum, inputNum int) (*bufio.Reader, io.Closer) {
 	path := getPath(dir, probNum, inputNum)
 	fi, err := os.Open(path)
 	if err != nil {
 		panic(err)
 	}
-	// XXX who's gonna close the file?
-	return bufio.NewReader(fi)
+	return bufio.NewReader(fi), fi
 }
