@@ -161,6 +161,7 @@ var problems = map[int]Problem{
 			return -1
 		}
 		for a := 1; a < n/2; a++ {
+			// XXX this is not even right!
 			for b := 1; b < a; b++ {
 				if a*b%n == 0 {
 					if n/2+a*b/n == a+b {
