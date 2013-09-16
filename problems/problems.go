@@ -163,6 +163,7 @@ var problems = map[int]Problem{
 		for a := 1; a < n/2; a++ {
 			// XXX this is not even right!
 			for b := 1; b < a; b++ {
+				// this is not really effective
 				if a*b%n == 0 {
 					if n/2+a*b/n == a+b {
 						c := 1000 - a - b
@@ -172,5 +173,37 @@ var problems = map[int]Problem{
 			}
 		}
 		return -1
+	}},
+	10: {2000000, func(n int) int {
+		// XXX copied from problem 7 but whatever
+		primes := make([]int, 2)
+		isPrime := func(k int) bool {
+			to := int(math.Sqrt(float64(k)))
+			for _, p := range primes {
+				if p > to {
+					return true
+				}
+				if k%p == 0 {
+					return false
+				}
+			}
+			return true
+		}
+		primes[0] = 2
+		primes[1] = 3
+		sum := 2
+		to := int(math.Sqrt(float64(n)))
+		for prevPrime := 3; prevPrime < n; {
+			sum += prevPrime
+			nextPrime := prevPrime + 2
+			for ; !isPrime(nextPrime); nextPrime += 2 {
+			}
+			if nextPrime < to {
+				// only need to store primes for isPrime
+				primes = append(primes, nextPrime)
+			}
+			prevPrime = nextPrime
+		}
+		return sum
 	}},
 }

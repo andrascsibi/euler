@@ -18,6 +18,7 @@ func TestProblems(t *testing.T) {
 		{7, 104743},
 		//		{8, 40824}, // XXX inputs doesn't work because of relative path
 		{9, 31875000},
+		{10, 142913828922},
 	}
 	covered := make(map[int]bool)
 	for _, c := range tests {
