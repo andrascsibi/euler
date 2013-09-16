@@ -156,6 +156,20 @@ var problems = map[int]Problem{
 		// (n^2)/2 + ab = n(a+b)
 		// n/2 + ab/n = a+b
 		// a*b is divisible by n
-		return 0
+		if n%2 != 0 {
+			fmt.Println("I'm not buying that! Sum of pythegoriean ints are even, fo shizzle!")
+			return -1
+		}
+		for a := 1; a < n/2; a++ {
+			for b := 1; b < a; b++ {
+				if a*b%n == 0 {
+					if n/2+a*b/n == a+b {
+						c := 1000 - a - b
+						return a * b * c
+					}
+				}
+			}
+		}
+		return -1
 	}},
 }
