@@ -147,4 +147,15 @@ var problems = map[int]Problem{
 		}
 		return maxProd
 	}},
+	9: {1000, func(n int) int {
+		// a^2 + b^2 = c^2
+		// a + b + c = n
+		// c = n - (a+b)
+		// c^2 = n^2 + (a+b)^2 - 2*n*(a+b)
+		// c^2 = n^2 + a^2 + b^2 + 2ab - 2n(a+b) = a^2 + b^2
+		// (n^2)/2 + ab = n(a+b)
+		// n/2 + ab/n = a+b
+		// a*b is divisible by n
+		return 0
+	}},
 }
