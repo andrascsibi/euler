@@ -63,3 +63,17 @@ func LazySeq(from, to int) chan int {
 	}()
 	return c
 }
+
+type Reducer func(cur, acc int) int
+
+func Reduce(slice []int, reducer Reducer) int {
+	return ReduceWithInitVal(slice[1:], reducer, slice[0])
+}
+
+func ReduceWithInitVal(slice []int, reducer Reducer, init int) int {
+	acc := init
+	for _, elem := range slice {
+		acc = reducer(elem, acc)
+	}
+	return acc
+}

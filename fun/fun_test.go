@@ -28,3 +28,23 @@ func TestPalindrome(t *testing.T) {
 		}
 	}
 }
+
+func TestReduceWithInitVal(t *testing.T) {
+	summer := func(cur, acc int) int {
+		return cur + acc
+	}
+	var tests = []struct {
+		slice []int
+		init  int
+		want  int
+	}{
+		{[]int{1, 2, 3, 4}, 0, 10},
+		{[]int{1, 2, 3, 4}, 10, 20},
+	}
+
+	for i, c := range tests {
+		if got := ReduceWithInitVal(c.slice, summer, c.init); got != c.want {
+			t.Errorf("failed case %v. got %v", i, got)
+		}
+	}
+}
