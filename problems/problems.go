@@ -3,6 +3,7 @@ package problems
 import (
 	"github.com/andrascsibi/euler/fun"
 	"github.com/andrascsibi/euler/inputs"
+	"github.com/andrascsibi/euler/ringbuf"
 
 	"bufio"
 	"fmt"
@@ -129,22 +130,16 @@ var problems = map[int]Problem{
 			}
 			return int8(b - '0')
 		}
-		//		rb = ringbuf.New(5)
-		size := 5
-		ringbuffer := make([]int8, size)
-		head := 0
+		ringb := ringbuf.New(5)
 		maxProd := 0
+		// is this the idiomatic way of iterating over bytes?
 		for b, err := br.ReadByte(); err == nil; b, err = br.ReadByte() {
 			digit := toDigit(b)
 			if digit < 0 {
 				continue
 			}
-			ringbuffer[head] = digit
-			head = (head + 1) % size
-			curProd := 1
-			for _, d := range ringbuffer {
-				curProd *= int(d)
-			}
+			ringb.Add(int(digit))
+			curProd := ringb.Reduce(fun.Prod, 1)
 			if curProd >= maxProd {
 				maxProd = curProd
 			}
