@@ -31,16 +31,21 @@ func TestPalindrome(t *testing.T) {
 
 func TestReduce(t *testing.T) {
 	var tests = []struct {
-		slice []int
-		init  int
-		want  int
+		slice   []int
+		init    int
+		reducer Reducer
+		want    int
 	}{
-		{[]int{1, 2, 3, 4}, 0, 10},
-		{[]int{1, 2, 3, 4}, 10, 20},
+		{[]int{}, 0, Sum, 0},
+		{[]int{1}, 0, Sum, 1},
+		{[]int{1, 2, 3, 4}, 0, Sum, 10},
+		{[]int{1, 2, 3, 4}, 10, Sum, 20},
+		{[]int{1, 2, 3, 4}, 1, Prod, 24},
+		{[]int{1, 2, 3, 4}, 10, Prod, 240},
 	}
 
 	for i, c := range tests {
-		if got := Reduce(c.slice, Sum, c.init); got != c.want {
+		if got := Reduce(c.slice, c.reducer, c.init); got != c.want {
 			t.Errorf("failed case %v. got %v", i, got)
 		}
 	}
