@@ -6,6 +6,9 @@ import (
 
 	"fmt"
 	"math"
+	"strconv"
+	"bufio"
+	"strings"
 )
 
 var _ = fmt.Println // silence unused import complain
@@ -126,6 +129,7 @@ var problems = map[int]Problem{
 			}
 			return int8(b - '0')
 		}
+//		rb = ringbuf.New(5)
 		size := 5
 		ringbuffer := make([]int8, size)
 		head := 0
@@ -205,5 +209,39 @@ var problems = map[int]Problem{
 			prevPrime = nextPrime
 		}
 		return sum
+	}},
+	11: {20, func(n int) int {
+		br, closer := inputs.BufReader("inputs", 11, n)
+		defer closer.Close()
+		scanner := bufio.NewScanner(br)
+		grid := make([][]uint8, n)
+		for i:=0; scanner.Scan(); i++ {
+			line := scanner.Text()
+			grid[i] = make([]uint8, n)
+			for j, valString := range strings.Split(line, " ") {
+				val, _ := strconv.Atoi(valString)
+				grid[i][j] = uint8(val)
+			}
+		}
+
+		size := 4
+		maxProd := 0
+		for i := 0; i < n; i++ {
+			ringbuffer := make([]uint8, size)
+			head := 0
+			for j := 0; j < n; j++ {
+				ringbuffer[head] = grid[]
+				head = (head + 1) % size
+				curProd := 1
+				for _, d := range ringbuffer {
+					curProd *= int(d)
+				}
+				if curProd >= maxProd {
+					maxProd = curProd
+				}
+			}
+		} 
+
+		return 0
 	}},
 }
