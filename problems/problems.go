@@ -5,11 +5,8 @@ import (
 	"github.com/andrascsibi/euler/inputs"
 	"github.com/andrascsibi/euler/ringbuf"
 
-	"bufio"
 	"fmt"
 	"math"
-	"strconv"
-	"strings"
 )
 
 var _ = fmt.Println // silence unused import complain
@@ -206,18 +203,7 @@ var problems = map[int]Problem{
 		return sum
 	}},
 	11: {20, func(n int) int {
-		br, closer := inputs.BufReader("inputs", 11, n)
-		defer closer.Close()
-		scanner := bufio.NewScanner(br)
-		grid := make([][]uint8, n)
-		for i := 0; scanner.Scan(); i++ {
-			line := scanner.Text()
-			grid[i] = make([]uint8, n)
-			for j, valString := range strings.Split(line, " ") {
-				val, _ := strconv.Atoi(valString)
-				grid[i][j] = uint8(val)
-			}
-		}
+		grid := inputs.Grid("inputs", 11, n)
 		fmt.Println(grid)
 		return 0
 	}},
