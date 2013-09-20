@@ -204,7 +204,65 @@ var problems = map[int]Problem{
 	}},
 	11: {20, func(n int) int {
 		grid := inputs.Grid("inputs", 11, n)
-		fmt.Println(grid)
-		return 0
+		// currying is a bit verbose in Go
+		largestProd := func(size int) func(slice []int) int {
+			return func(slice []int) int {
+				maxProd := 0
+				ringb := ringbuf.New(size)
+				for i, elem := range slice {
+					ringb.Add(int(elem))
+					if i < size-1 {
+						continue
+					}
+					curProd := ringb.Reduce(fun.Prod, 1)
+					if curProd > maxProd {
+						maxProd = curProd
+					}
+				}
+				return maxProd
+			}
+		}(4)
+		maxProd := 0
+		updateMaxProd := func(toTest []int) {
+			curProd := largestProd(toTest)
+			if curProd > maxProd {
+				maxProd = curProd
+			}
+		}
+		// -
+		for _, row := range grid {
+			updateMaxProd(row)
+		}
+		// |
+		for col := 0; col < n; col++ {
+			column := make([]int, n)
+			for row := 0; row < n; row++ {
+				column[row] = grid[row][col]
+			}
+			updateMaxProd(column)
+		}
+		downLeftFrom := func(row0, col0 int) []int {
+			slice := make([]int, 0, n)
+			for row, col := row0, col0; row < n && col < n; row, col = row+1, col+1 {
+				slice = append(slice, grid[row][col])
+			}
+			return slice
+		}
+		downRightFrom := func(row0, col0 int) []int {
+			slice := make([]int, 0, n)
+			for row, col := row0, col0; row < n && col >= 0; row, col = row+1, col-1 {
+				slice = append(slice, grid[row][col])
+			}
+			return slice
+		}
+		for i := 0; i < n; i++ {
+			// \
+			updateMaxProd(downLeftFrom(i, 0))
+			updateMaxProd(downLeftFrom(0, i))
+			// /
+			updateMaxProd(downRightFrom(0, i))
+			updateMaxProd(downRightFrom(i, n-1))
+		}
+		return maxProd
 	}},
 }
