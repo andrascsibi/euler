@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"math"
 	"math/big"
+	"strconv"
 )
 
 var _ = fmt.Println // silence unused import complain
@@ -304,7 +305,10 @@ var problems = map[int]Problem{
 			i.SetString(scanner.Text(), 10)
 			total.Add(total, i)
 		}
-		fmt.Println(string([]byte(total.String())[:10]))
+		first10Digits, _ := strconv.Atoi(string([]byte(total.String())[:10]))
+		return first10Digits
+	}},
+	14: {1000000, func(n int) int {
 		return 0
 	}},
 }
