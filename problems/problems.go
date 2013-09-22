@@ -309,6 +309,31 @@ var problems = map[int]Problem{
 		return first10Digits
 	}},
 	14: {1000000, func(n int) int {
-		return 0
+		collatz_lens := make([]int, 10*n)
+		var collatz_len func(n int) int
+		collatz_len = func(n int) int {
+			if n == 1 {
+				return 1
+			}
+			c_len := 0
+			if n < len(collatz_lens) {
+				c_len = collatz_lens[n]
+				if c_len != 0 {
+					return c_len
+				}
+			}
+			next := 0
+			if n%2 == 0 {
+				next = n / 2
+			} else {
+				next = 3*n + 1
+			}
+			c_len = 1 + collatz_len(next)
+			if n < len(collatz_lens) {
+				collatz_lens[n] = c_len
+			}
+			return c_len
+		}
+		return collatz_len(n)
 	}},
 }
