@@ -275,9 +275,6 @@ var problems = map[int]Problem{
 			case 3:
 				return 2
 			}
-			if n == 1 {
-				return 1
-			}
 			to := int(math.Sqrt(float64(n)))
 			divs := 2
 			for i := 2; i < to; i++ {
