@@ -5,8 +5,10 @@ import (
 	"github.com/andrascsibi/euler/inputs"
 	"github.com/andrascsibi/euler/ringbuf"
 
+	"bufio"
 	"fmt"
 	"math"
+	"math/big"
 )
 
 var _ = fmt.Println // silence unused import complain
@@ -291,5 +293,18 @@ var problems = map[int]Problem{
 		for ; numDivisors(i*(i+1)/2) <= n; i++ {
 		}
 		return i * (i + 1) / 2
+	}},
+	13: {100, func(n int) int {
+		br, closer := inputs.BufReader("inputs", 13, n)
+		defer closer.Close()
+		scanner := bufio.NewScanner(br)
+		total := big.NewInt(0)
+		for scanner.Scan() {
+			i := new(big.Int)
+			i.SetString(scanner.Text(), 10)
+			total.Add(total, i)
+		}
+		fmt.Println(string([]byte(total.String())[:10]))
+		return 0
 	}},
 }
