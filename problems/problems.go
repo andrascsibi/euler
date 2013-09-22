@@ -265,4 +265,34 @@ var problems = map[int]Problem{
 		}
 		return maxProd
 	}},
+	12: {500, func(n int) int {
+		numDivisors := func(n int) int {
+			switch n {
+			case 1:
+				return 1
+			case 2:
+				return 2
+			case 3:
+				return 2
+			}
+			if n == 1 {
+				return 1
+			}
+			to := int(math.Sqrt(float64(n)))
+			divs := 2
+			for i := 2; i < to; i++ {
+				if n%i == 0 {
+					divs += 2
+				}
+			}
+			if to*to == n {
+				divs++
+			}
+			return divs
+		}
+		i := 1
+		for ; numDivisors(i*(i+1)/2) <= n; i++ {
+		}
+		return i * (i + 1) / 2
+	}},
 }
