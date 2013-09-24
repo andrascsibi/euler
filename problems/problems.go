@@ -310,7 +310,10 @@ var problems = map[int]Problem{
 	}},
 	14: {1000000, func(n int) int {
 		// throw a shitload of memory on the problem, that's how crazy I am
-		collatz_lens := make([]int, 10*n)
+		// collatz_lens := make([]int, 10*n)
+		// memo seesm pretty scarce - we're better off with a map
+		// it's pretty cool how the rest of the code stays unchanged
+		collatz_lens := make(map[int]int)
 		var collatz_len func(n int) int
 		collatz_len = func(n int) int {
 			if n == 1 {
