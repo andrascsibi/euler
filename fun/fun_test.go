@@ -50,3 +50,24 @@ func TestReduce(t *testing.T) {
 		}
 	}
 }
+
+func TestMemoizer(t *testing.T) {
+	var fact Mapper
+	fact = func(n int) int {
+		if n == 1 {
+			return 1
+		}
+		return n * fact(n-1)
+	}
+	if got := fact(5); got != 120 {
+		t.Errorf("failed case")
+	}
+	memo := make([]int, 5)
+	//	memoizer := Memoizer{memo, fact}
+	//	memoizer.Run(5)
+	fact = Memoize(memo, fact)
+	if got := fact(5); got != 120 {
+		t.Errorf("failed case")
+	}
+	fact(12)
+}
