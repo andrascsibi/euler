@@ -309,6 +309,7 @@ var problems = map[int]Problem{
 		return first10Digits
 	}},
 	14: {1000000, func(n int) int {
+		// throw a shitload of memory on the problem, that's how crazy I am
 		collatz_lens := make([]int, 10*n)
 		var collatz_len func(n int) int
 		collatz_len = func(n int) int {
@@ -334,6 +335,14 @@ var problems = map[int]Problem{
 			}
 			return c_len
 		}
-		return collatz_len(n)
+		maxlen := 0
+		argmaxlen := 0
+		for i := n; i > 0; i-- {
+			if c_len := collatz_len(i); c_len > maxlen {
+				maxlen = c_len
+				argmaxlen = i
+			}
+		}
+		return argmaxlen
 	}},
 }
