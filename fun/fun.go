@@ -1,9 +1,5 @@
 package fun
 
-import (
-	"fmt"
-)
-
 // Alright, this is not functional at all,
 // I just couldn't figure out where to put it
 func Palindrome(n int) bool {
@@ -84,24 +80,4 @@ func Sum(a, b int) int {
 
 func Prod(a, b int) int {
 	return a * b
-}
-
-type Mapper func(n int) int
-
-func Memoize(memo []int, mapper Mapper) Mapper {
-	return func(n int) int {
-		ans := 0
-		if n < len(memo) {
-			ans = memo[n]
-			if ans != 0 {
-				fmt.Println(ans)
-				return ans
-			}
-		}
-		ans = mapper(n)
-		if n < len(memo) {
-			memo[n] = ans
-		}
-		return ans
-	}
 }
