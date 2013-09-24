@@ -348,4 +348,10 @@ var problems = map[int]Problem{
 		}
 		return argmaxlen
 	}},
+	// 15 : we have 2n choices, between down or right.
+	// We can choose 'down' exactly n times.
+	// so the question is:
+	// how many different ways can we drop n balls into 2n places
+	// => answer is 2n choose n
+
 }
