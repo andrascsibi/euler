@@ -353,5 +353,33 @@ var problems = map[int]Problem{
 	// so the question is:
 	// how many different ways can we drop n balls into 2n places
 	// => answer is 2n choose n
-
+	16: {1000, func(n int) int {
+		b := big.NewInt(2)
+		// 2 = 2^1 = 2^(2^0)
+		// 2 * 2 = 2^2 = 2^(2^1)
+		// 4*4 = 2^2 * 2^2 = 2 ^ 4 = 2^(2^2)
+		// 16*16 = 2^4 * 2^4 = 2 ^ 8 = 2^(2^3)
+		for i := 0; i < 10; i++ {
+			b.Mul(b, b)
+		}
+		// big = 2^1024
+		two := big.NewInt(2)
+		for i := 0; i < 24; i++ {
+			b.Mul(b, two)
+		}
+		fmt.Println(b)
+		sum := 0
+		ten := big.NewInt(10)
+		for {
+			var rem big.Int
+			b.DivMod(b, ten, &rem)
+			sum += int(rem.Int64())
+			//fmt.Println(sum)
+			//fmt.Println(b)
+			if b.Int64() == int64(0) {
+				return sum
+			}
+		}
+		return 0
+	}},
 }
