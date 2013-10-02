@@ -365,9 +365,10 @@ var problems = map[int]Problem{
 		// big = 2^1024
 		two := big.NewInt(2)
 		for i := 0; i < 24; i++ {
-			b.Mul(b, two)
+			b.Div(b, two)
 		}
 		fmt.Println(b)
+		fmt.Println(big.NewInt(2).Exp(two, big.NewInt(1000), big.NewInt(0)))
 		sum := 0
 		ten := big.NewInt(10)
 		for {
